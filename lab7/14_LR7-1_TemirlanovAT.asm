@@ -32,7 +32,7 @@ main:
 	jmp fini		;exit flag
 
 dump:	
-	mov cx, 16
+	mov cx, 32
 	lp:
 		push cx
 		mov cx, 16
@@ -43,7 +43,7 @@ dump:
 		xor cx, cx
 		mov dx, 16
 		int 21h 
-
+		jc exit
 		pop cx
 		call endl		;print endline after ending of writing 16 bytes of memory data to give a matrix form to memory dump
 		loop lp
