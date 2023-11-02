@@ -24,7 +24,7 @@ main:
 	mov ax, 0x3C00		;Creating file
 	mov cx, 0		;File is not hidden (make cx equal to 1 to make it hidden)
 	int 21h			;It writes logic address to ax
-
+	jc fini
 	mov bx, ax		;We save ax to bx, 'cause writing info in file needs logic address that it searchs in bx
 	
 	call dump	
@@ -43,7 +43,7 @@ dump:
 		xor cx, cx
 		mov dx, 16
 		int 21h 
-		jc exit
+
 		pop cx
 		call endl		;print endline after ending of writing 16 bytes of memory data to give a matrix form to memory dump
 		loop lp
@@ -64,6 +64,7 @@ get_MBR:
 	mov dh, 0	;Head
 	mov dl, 0x80	;Getting from Hard disk, 'cause starts from 80h. 00h..7fh - is floppy disk
 	int 13h
+	jc fini
 
 	pop dx
 	pop cx
